@@ -1,0 +1,5 @@
+<resources>
+    <string name="mainMenuOptionsText">Options</string>
+    <string name="mainMenuScale">Scale</string>
+    <string name="appName" translatable="false">Semibreve</string>
+</resources>
