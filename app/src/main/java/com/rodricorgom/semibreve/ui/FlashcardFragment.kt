@@ -1,6 +1,9 @@
 package com.rodricorgom.semibreve.ui
 
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,6 +43,8 @@ class FlashcardFragment : Fragment() {
 
     //Use American scale if true
     private var scale: Boolean = false;
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,17 +105,23 @@ class FlashcardFragment : Fragment() {
             Log.d("SET_TEST","${notes}")
             button.setOnClickListener{
                 binding.answerTextView.text = getString(R.string.incorrect_answer)
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
-                    .commit()
+                Handler().postDelayed({
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
+                        .commit()
+                },1000)
+
             }
         }
 
         correctButton.setOnClickListener{
             binding.answerTextView .text = getString(R.string.correct_answer)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
-                .commit()
+            Handler().postDelayed({
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
+                    .commit()
+            },1000)
+
         }
 
 
