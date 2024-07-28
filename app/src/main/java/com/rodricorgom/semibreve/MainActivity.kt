@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
+    var score : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -17,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, OptionsFragment.newInstance())
-            //.add(R.id.fragmentContainerView, OptionsFragment())
             .commit()
     }
 

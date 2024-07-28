@@ -1,7 +1,4 @@
 <resources>
-    <string name="mainMenuOptionsText">Options</string>
-    <string name="mainMenuScale">Scale</string>
-    <string name="appName" translatable="false">Semibreve</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -12,11 +9,17 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_name">Semibreve</string>
-    <string name="main_menu_text">Menu</string>
+    <string name="app_name" translatable="false">Semibreve</string>
+    <string name="main_menu_text">Options</string>
     <string name="scale_switch_placeholder">Scale</string>
     <string name="scale_textView">Scale</string>
     <string name="scale_eu" translatable="false">Do - Re - Mi - Fa - Sol - La - Si</string>
     <string name="scale_us" translatable="false">C - D - E - F - G - A - B</string>
+    <string name="button_start">Start</string>
+    <string name="scale_american">American</string>
+    <string name="scale_european">European</string>
+    <string name="incorrect_answer">Incorrect</string>
+    <string name="correct_answer">Correct</string>
+    <string name="answer_button_placeholder">Option</string>
+    <string name="answer_placeholder" >Answer</string>
 </resources>

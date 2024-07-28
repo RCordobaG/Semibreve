@@ -24,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class FlashcardFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: Boolean? = null
+    private var param1: Boolean = false
     private var param2: String? = null
 
     private lateinit var notes : MutableSet<String>
@@ -39,7 +39,7 @@ class FlashcardFragment : Fragment() {
     private val binding get() = _binding!!
 
     //Use American scale if true
-    var scale: Boolean = false;
+    private var scale: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,10 +85,10 @@ class FlashcardFragment : Fragment() {
         correctButton.text = correctAnswer
 
         if(scale){
-            binding.imageView2.setImageResource(Constants.noteImageUS.get(correctAnswer)!!)
+            binding.notesImageView.setImageResource(Constants.noteImageUS.get(correctAnswer)!!)
         }
         else{
-            binding.imageView2.setImageResource(Constants.noteImageEU.get(correctAnswer)!!)
+            binding.notesImageView.setImageResource(Constants.noteImageEU.get(correctAnswer)!!)
         }
 
 
@@ -99,13 +99,21 @@ class FlashcardFragment : Fragment() {
             button.setText(note)
             Log.d("SET_TEST","${notes}")
             button.setOnClickListener{
-                binding.textView9.text = "Incorrect"
+                binding.answerTextView.text = getString(R.string.incorrect_answer)
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
+                    .commit()
             }
         }
 
         correctButton.setOnClickListener{
-            binding.textView9.text = "Correct"
+            binding.answerTextView .text = getString(R.string.correct_answer)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
+                .commit()
         }
+
+
 
 
     }

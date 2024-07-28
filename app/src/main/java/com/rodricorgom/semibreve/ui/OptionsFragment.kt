@@ -39,10 +39,22 @@ class OptionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.switch1.setOnClickListener{
-            scale = binding.switch1.isChecked
-        }
 
+        binding.scaleSwitch.setOnClickListener{
+            scale = binding.scaleSwitch.isChecked
+
+            if(scale) {
+                binding.scaleSwitch.text = getString(R.string.scale_american)
+                binding.scaleTextView.text = getString(R.string.scale_us)
+            }
+
+            else{
+
+
+                binding.scaleSwitch.text = getString(R.string.scale_european)
+                binding.scaleTextView.text = getString(R.string.scale_eu)
+            }
+        }
 
         binding.button.setOnClickListener{
             parentFragmentManager.beginTransaction()
