@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rodricorgom.semibreve.MainActivity
 import com.rodricorgom.semibreve.R
+import com.rodricorgom.semibreve.data.model.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
 
 /**
@@ -17,12 +19,6 @@ import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
 class OptionsFragment : Fragment() {
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    //Use American scale if true
-    var scale: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,25 +36,21 @@ class OptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Check if the settings are using European or American scale and set the UI accordingly
+        checkScale()
+
+        //Listener for when the scale toggle is switched
         binding.scaleSwitch.setOnClickListener{
-            scale = binding.scaleSwitch.isChecked
-
-            if(scale) {
-                binding.scaleSwitch.text = getString(R.string.scale_american)
-                binding.scaleTextView.text = getString(R.string.scale_us)
-            }
-
-            else{
-
-
-                binding.scaleSwitch.text = getString(R.string.scale_european)
-                binding.scaleTextView.text = getString(R.string.scale_eu)
-            }
+            RuntimeSettings.scale = binding.scaleSwitch.isChecked
+            //Check the used scale and update UI
+            checkScale()
         }
 
         binding.button.setOnClickListener{
+            RuntimeSettings.rounds = 10
+            RuntimeSettings.currentRound = 0
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(scale))
+                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance())
                 .addToBackStack("Flashcard fragment")
                 .commit()
         }
@@ -67,6 +59,19 @@ class OptionsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun checkScale(){
+        //Check RuntimeSettings Singleton to validate if using the American or European scale
+        if(RuntimeSettings.scale) {
+            binding.scaleSwitch.text = getString(R.string.scale_american)
+            binding.scaleTextView.text = getString(R.string.scale_us)
+        }
+
+        else{
+            binding.scaleSwitch.text = getString(R.string.scale_european)
+            binding.scaleTextView.text = getString(R.string.scale_eu)
+        }
     }
 
     companion object {

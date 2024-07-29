@@ -22,4 +22,7 @@
     <string name="correct_answer">Correct</string>
     <string name="answer_button_placeholder">Option</string>
     <string name="answer_placeholder" >Answer</string>
+    <string name="current_round_text_view">Round</string>
+    <string name="round_placeholder_text">x/y</string>
+    <string name="round_counter_text">Round: %1$d / %2$d</string>
 </resources>

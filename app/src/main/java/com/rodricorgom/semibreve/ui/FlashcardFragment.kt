@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.rodricorgom.semibreve.Constants
 import com.rodricorgom.semibreve.R
+import com.rodricorgom.semibreve.data.model.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentFlashcardBinding
 import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
+import kotlin.math.round
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,13 +67,16 @@ class FlashcardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(scale){
-            notes = Constants.US_notes.toMutableSet()
-        }
-        else{
-            notes = Constants.EU_notes.toMutableSet()
+        RuntimeSettings.currentRound += 1
+        binding.roundCounterTextView.text = String.format(getString(R.string.round_counter_text),RuntimeSettings.currentRound,RuntimeSettings.rounds)
+        notes = if(RuntimeSettings.scale){
+            Constants.US_notes.toMutableSet()
+        } else{
+            Constants.EU_notes.toMutableSet()
         }
 
+
+        //Choose which one will be the correct answer and act accordingly
         answerButtons = mutableListOf(binding.answerBtn1,binding.answerBtn2,binding.answerBtn3,binding.answerBtn4)
         var correctButton = answerButtons.elementAt((0..(answerButtons.size)-1).random())
         Log.d("SET_TEST","${correctButton}")
@@ -79,9 +84,6 @@ class FlashcardFragment : Fragment() {
         Log.d("SET_TEST","${answerButtons}")
 
 
-
-
-        //Choose which one will be the correct answer and act accordingly
         Log.d("SET_TEST","${notes}")
         var correctAnswer = notes.elementAt((0..(notes.size - 1)).random())
         notes.remove(correctAnswer)
@@ -89,7 +91,7 @@ class FlashcardFragment : Fragment() {
 
         correctButton.text = correctAnswer
 
-        if(scale){
+        if(RuntimeSettings.scale){
             binding.notesImageView.setImageResource(Constants.noteImageUS.get(correctAnswer)!!)
         }
         else{
@@ -106,9 +108,7 @@ class FlashcardFragment : Fragment() {
             button.setOnClickListener{
                 binding.answerTextView.text = getString(R.string.incorrect_answer)
                 Handler().postDelayed({
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
-                        .commit()
+                    callNextFragment()
                 },1000)
 
             }
@@ -117,19 +117,25 @@ class FlashcardFragment : Fragment() {
         correctButton.setOnClickListener{
             binding.answerTextView .text = getString(R.string.correct_answer)
             Handler().postDelayed({
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance(param1))
-                    .commit()
+                callNextFragment()
             },1000)
 
         }
 
-
-
-
     }
 
-
+    fun callNextFragment(){
+        if(RuntimeSettings.currentRound >= RuntimeSettings.rounds){
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                .commit()
+        }
+        else{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance())
+                .commit()
+        }
+    }
 
     companion object {
         /**
@@ -142,11 +148,9 @@ class FlashcardFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: Boolean) =
+        fun newInstance() =
             FlashcardFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ARG_PARAM1, param1)
-                }
+
             }
     }
 }
