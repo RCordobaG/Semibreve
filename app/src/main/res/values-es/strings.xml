@@ -18,4 +18,9 @@
     <string name="correct_answer">Correcto</string>
     <string name="answer_button_placeholder">Opción</string>
     <string name="answer_placeholder">Respuesta</string>
+    <string name="round_counter_text">Ronda: %1$d / %2$d</string>
+    <string name="results_text_view">Resultados</string>
+    <string name="results_corrects_answers_text">Respuestas correctas: %1$d</string>
+    <string name="results_incorrect_answers_text">Respuestas incorrectas: %1$d</string>
+    <string name="computed_score_text">Resultado final: %1$f</string>
 </resources>

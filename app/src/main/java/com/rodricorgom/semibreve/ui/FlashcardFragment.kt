@@ -106,6 +106,7 @@ class FlashcardFragment : Fragment() {
             button.setText(note)
             Log.d("SET_TEST","${notes}")
             button.setOnClickListener{
+                RuntimeSettings.incorrectAnswers += 1
                 binding.answerTextView.text = getString(R.string.incorrect_answer)
                 Handler().postDelayed({
                     callNextFragment()
@@ -115,6 +116,7 @@ class FlashcardFragment : Fragment() {
         }
 
         correctButton.setOnClickListener{
+            RuntimeSettings.correctAnswers += 1
             binding.answerTextView .text = getString(R.string.correct_answer)
             Handler().postDelayed({
                 callNextFragment()
@@ -124,15 +126,18 @@ class FlashcardFragment : Fragment() {
 
     }
 
-    fun callNextFragment(){
+    private fun callNextFragment(){
+        Log.d("Score","Correct ${RuntimeSettings.correctAnswers}")
+        Log.d("Score","Incorrect ${RuntimeSettings.incorrectAnswers}")
+        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/RuntimeSettings.rounds}")
         if(RuntimeSettings.currentRound >= RuntimeSettings.rounds){
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                .replace(R.id.fragmentContainerView,ScoreFragment.newInstance())
                 .commit()
         }
         else{
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance())
+                .replace(R.id.fragmentContainerView, newInstance())
                 .commit()
         }
     }

@@ -8,7 +8,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="app_name" translatable="false">Semibreve</string>
     <string name="main_menu_text">Options</string>
     <string name="scale_switch_placeholder">Scale</string>
@@ -21,8 +20,10 @@
     <string name="incorrect_answer">Incorrect</string>
     <string name="correct_answer">Correct</string>
     <string name="answer_button_placeholder">Option</string>
-    <string name="answer_placeholder" >Answer</string>
-    <string name="current_round_text_view">Round</string>
-    <string name="round_placeholder_text">x/y</string>
+    <string name="answer_placeholder">Answer</string>
     <string name="round_counter_text">Round: %1$d / %2$d</string>
+    <string name="results_text_view" >Results</string>
+    <string name="results_corrects_answers_text">Correct answers: %1$d</string>
+    <string name="results_incorrect_answers_text">Incorrect answers: %1$d</string>
+    <string name="computed_score_text">Final score: %1$f \%%</string>
 </resources>
