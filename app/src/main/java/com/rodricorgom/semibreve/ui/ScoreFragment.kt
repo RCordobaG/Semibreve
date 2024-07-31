@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rodricorgom.semibreve.R
-import com.rodricorgom.semibreve.data.model.RuntimeSettings
-import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
+import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentScoreBinding
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,10 +42,12 @@ class ScoreFragment : Fragment() {
 
         Log.d("Score","Correct ${RuntimeSettings.correctAnswers}")
         Log.d("Score","Incorrect ${RuntimeSettings.incorrectAnswers}")
-        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/RuntimeSettings.rounds}")
+        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/ RuntimeSettings.rounds}")
 
-        binding.correctAnswersTextView.text = String.format(getString(R.string.results_corrects_answers_text),RuntimeSettings.correctAnswers)
-        binding.incorrectAnswersTextView.text = String.format(getString(R.string.results_incorrect_answers_text),RuntimeSettings.incorrectAnswers)
+        binding.correctAnswersTextView.text = String.format(getString(R.string.results_corrects_answers_text),
+            RuntimeSettings.correctAnswers)
+        binding.incorrectAnswersTextView.text = String.format(getString(R.string.results_incorrect_answers_text),
+            RuntimeSettings.incorrectAnswers)
         binding.finalScoreTextView.text = String.format(getString(R.string.computed_score_text),((RuntimeSettings.correctAnswers.toFloat() / RuntimeSettings.rounds.toFloat())*100))
 
     }

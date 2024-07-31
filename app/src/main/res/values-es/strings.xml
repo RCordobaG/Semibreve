@@ -23,4 +23,7 @@
     <string name="results_corrects_answers_text">Respuestas correctas: %1$d</string>
     <string name="results_incorrect_answers_text">Respuestas incorrectas: %1$d</string>
     <string name="computed_score_text">Resultado final: %1$f</string>
+    <string name="button_new_quiz">Nuevo ejercicio</string>
+    <string name="button_return_home">Volver al inicio</string>
+    <string name="rounds_number_text">Rondas</string>
 </resources>

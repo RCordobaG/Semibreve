@@ -1,14 +1,12 @@
 package com.rodricorgom.semibreve.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.rodricorgom.semibreve.MainActivity
 import com.rodricorgom.semibreve.R
-import com.rodricorgom.semibreve.data.model.RuntimeSettings
+import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
 
 /**
@@ -47,7 +45,13 @@ class OptionsFragment : Fragment() {
         }
 
         binding.button.setOnClickListener{
-            RuntimeSettings.rounds = 10
+            try{
+                RuntimeSettings.rounds = binding.roundsTextInput.text.toString().toInt()
+            }
+            catch (x: NumberFormatException){
+                RuntimeSettings.rounds = 10
+            }
+
             RuntimeSettings.currentRound = 0
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView,FlashcardFragment.newInstance())

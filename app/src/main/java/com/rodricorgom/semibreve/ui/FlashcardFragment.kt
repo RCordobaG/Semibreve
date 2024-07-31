@@ -1,26 +1,19 @@
 package com.rodricorgom.semibreve.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
-import android.os.SystemClock
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.rodricorgom.semibreve.Constants
 import com.rodricorgom.semibreve.R
-import com.rodricorgom.semibreve.data.model.RuntimeSettings
+import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentFlashcardBinding
-import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
-import kotlin.math.round
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "scale"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -28,32 +21,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FlashcardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: Boolean = false
-    private var param2: String? = null
 
     private lateinit var notes : MutableSet<String>
 
     private lateinit var answerButtons : List<Button>
-    //private var US_notes = Constants.US_notes.toMutableSet()
-
-    //val notesMap = mapOf(1 to "do_c_light",2 to "")
 
     private var _binding: FragmentFlashcardBinding? = null
 
     private val binding get() = _binding!!
 
-    //Use American scale if true
-    private var scale: Boolean = false;
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getBoolean(ARG_PARAM1)
-            scale = param1 as Boolean
-        }
     }
 
     override fun onCreateView(
@@ -67,8 +45,33 @@ class FlashcardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        binding.endTestButton.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setTitle("End current test?")
+                .setMessage("You have chosen to end the current test. Would you like to save your results up to now?")
+
+                .setPositiveButton(getString(R.string.save_and_exit_button), DialogInterface.OnClickListener(){ dialog, int->
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                        .commit()
+                })
+
+                .setNeutralButton(getString(R.string.exit_without_saving_button), DialogInterface.OnClickListener(){ dialog, int ->
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                        .commit()
+                })
+
+                .setNegativeButton(getString(R.string.cancel_button),null)
+                .show()
+        }
+
         RuntimeSettings.currentRound += 1
-        binding.roundCounterTextView.text = String.format(getString(R.string.round_counter_text),RuntimeSettings.currentRound,RuntimeSettings.rounds)
+        binding.roundCounterTextView.text = String.format(getString(R.string.round_counter_text),
+            RuntimeSettings.currentRound,
+            RuntimeSettings.rounds)
         notes = if(RuntimeSettings.scale){
             Constants.US_notes.toMutableSet()
         } else{
@@ -129,7 +132,7 @@ class FlashcardFragment : Fragment() {
     private fun callNextFragment(){
         Log.d("Score","Correct ${RuntimeSettings.correctAnswers}")
         Log.d("Score","Incorrect ${RuntimeSettings.incorrectAnswers}")
-        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/RuntimeSettings.rounds}")
+        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/ RuntimeSettings.rounds}")
         if(RuntimeSettings.currentRound >= RuntimeSettings.rounds){
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView,ScoreFragment.newInstance())

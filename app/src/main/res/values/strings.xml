@@ -26,4 +26,13 @@
     <string name="results_corrects_answers_text">Correct answers: %1$d</string>
     <string name="results_incorrect_answers_text">Incorrect answers: %1$d</string>
     <string name="computed_score_text">Final score: %1$f \%%</string>
+    <string name="button_new_quiz">New quiz</string>
+    <string name="button_return_home" >Return to home screen</string>
+    <string name="rounds_number_text">Rounds</string>
+    <string name="round_number_default">Default: 10</string>
+    <string name="save_exit_button" />
+    <string name="end_test_button">End test</string>
+    <string name="save_and_exit_button">Save and exit</string>
+    <string name="exit_without_saving_button">Exit without saving</string>
+    <string name="cancel_button">Cancel</string>
 </resources>

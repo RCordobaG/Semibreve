@@ -1,4 +1,4 @@
-package com.rodricorgom.semibreve.data.model
+package com.rodricorgom.semibreve.data.RuntimeData
 
 object RuntimeSettings {
 
