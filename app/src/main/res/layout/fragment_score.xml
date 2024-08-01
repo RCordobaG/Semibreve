@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/incorrectAnswersTextView" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/scoreNewQuizButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -68,7 +68,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/scoreNewQuizButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/finalScoreTextView">
@@ -80,13 +80,13 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/scoreHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="24dp"
         android:text="@string/button_return_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintStart_toEndOf="@+id/scoreNewQuizButton"
+        app:layout_constraintTop_toTopOf="@+id/scoreNewQuizButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

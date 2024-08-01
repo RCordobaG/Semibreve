@@ -1,11 +1,13 @@
 package com.rodricorgom.semibreve.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.rodricorgom.semibreve.R
 import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
@@ -52,6 +54,7 @@ class ScoreFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,17 +77,21 @@ class ScoreFragment : Fragment() {
             RuntimeSettings.incorrectAnswers)
         binding.finalScoreTextView.text = String.format(getString(R.string.computed_score_text),((RuntimeSettings.correctAnswers.toFloat() / RuntimeSettings.rounds.toFloat())*100))
 
+        binding.scoreHomeButton.setOnClickListener{
+            parentFragmentManager.popBackStackImmediate()
+            parentFragmentManager.popBackStackImmediate()
+            parentFragmentManager.popBackStackImmediate()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView,MainMenuFragment.newInstance())
+                .commit()
+        }
+
+        binding.scoreNewQuizButton.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ScoreFragment.
-         */
         @JvmStatic
         fun newInstance() =
             ScoreFragment().apply {
