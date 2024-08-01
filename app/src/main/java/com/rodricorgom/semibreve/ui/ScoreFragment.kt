@@ -6,9 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.rodricorgom.semibreve.R
 import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
+import com.rodricorgom.semibreve.data.model.LocalResultsManager
+import com.rodricorgom.semibreve.data.model.TestResult
 import com.rodricorgom.semibreve.databinding.FragmentScoreBinding
+import java.io.File
+import java.io.IOException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.Date
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -22,6 +31,12 @@ private const val ARG_PARAM2 = "param2"
 class ScoreFragment : Fragment() {
     private var _binding : FragmentScoreBinding? = null
     private val binding get() = _binding!!
+
+    private var correctAnswers : Int = 0
+    private var incorrectAnswers : Int = 0
+    private var score : Double = 0.0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +55,18 @@ class ScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("Score","Correct ${RuntimeSettings.correctAnswers}")
-        Log.d("Score","Incorrect ${RuntimeSettings.incorrectAnswers}")
-        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/ RuntimeSettings.rounds}")
+        val manager = LocalResultsManager(requireContext())
+
+        correctAnswers = RuntimeSettings.correctAnswers
+        incorrectAnswers = RuntimeSettings.incorrectAnswers
+        score = (correctAnswers.toDouble()/RuntimeSettings.rounds.toDouble())
+
+        Log.d("Score","Correct ${correctAnswers}")
+        Log.d("Score","Incorrect ${incorrectAnswers}")
+        Log.d("Score","Ratio ${score}")
+
+        val result = TestResult(System.currentTimeMillis().toString(), LocalDateTime.now().toString(),correctAnswers, incorrectAnswers,score)
+        manager.createResult(result)
 
         binding.correctAnswersTextView.text = String.format(getString(R.string.results_corrects_answers_text),
             RuntimeSettings.correctAnswers)

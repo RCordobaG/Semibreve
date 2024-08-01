@@ -11,4 +11,5 @@ object RuntimeSettings {
     //Configurable number of rounds the user wants to play
     var rounds : Int = 0
     var currentRound: Int = 0
+    var maxEntries: Int = 10
 }

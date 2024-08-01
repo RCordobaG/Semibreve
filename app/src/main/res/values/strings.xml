@@ -22,12 +22,12 @@
     <string name="answer_button_placeholder">Option</string>
     <string name="answer_placeholder">Answer</string>
     <string name="round_counter_text">Round: %1$d / %2$d</string>
-    <string name="results_text_view" >Results</string>
+    <string name="results_text_view">Results</string>
     <string name="results_corrects_answers_text">Correct answers: %1$d</string>
     <string name="results_incorrect_answers_text">Incorrect answers: %1$d</string>
     <string name="computed_score_text">Final score: %1$f \%%</string>
     <string name="button_new_quiz">New quiz</string>
-    <string name="button_return_home" >Return to home screen</string>
+    <string name="button_return_home">Return to home screen</string>
     <string name="rounds_number_text">Rounds</string>
     <string name="round_number_default">Default: 10</string>
     <string name="save_exit_button" />
@@ -35,4 +35,26 @@
     <string name="save_and_exit_button">Save and exit</string>
     <string name="exit_without_saving_button">Exit without saving</string>
     <string name="cancel_button">Cancel</string>
+    <string name="test_options_title">Create new session</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_drawer">MainActivityDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="settings_button">Settings\n</string>
+    <string name="fragment_settings_title">Settings\n</string>
+    <string name="delete_results_button">Delete test results</string>
+    <string name="button_back">Back</string>
+    <string name="time_between_rounds">Time until next round</string>
+    <string name="time_between_rounds_detail">Specifies the time between answering a flashcard and the next one appearing automatically. Will not work in manual mode.</string>
+    <string name="manual_mode_heading_text">Manual Mode</string>
+    <string name="manuak_mode_explanation">Toggles manual mode for next rounds. A button will appear on the flashcard after answering to toggle the next round.</string>
 </resources>

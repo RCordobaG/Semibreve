@@ -3,6 +3,7 @@ package com.rodricorgom.semibreve
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.rodricorgom.semibreve.databinding.ActivityMainBinding
+import com.rodricorgom.semibreve.ui.MainMenuFragment
 import com.rodricorgom.semibreve.ui.OptionsFragment
 import com.rodricorgom.semibreve.ui.login.LoginFragment
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, OptionsFragment.newInstance())
+            .replace(R.id.fragmentContainerView, MainMenuFragment.newInstance())
             .commit()
     }
 
