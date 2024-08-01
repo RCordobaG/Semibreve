@@ -12,4 +12,5 @@ object RuntimeSettings {
     var rounds : Int = 0
     var currentRound: Int = 0
     var maxEntries: Int = 10
+    var newRoundTimer : Long = 1000
 }

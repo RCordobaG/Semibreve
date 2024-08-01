@@ -113,7 +113,7 @@ class FlashcardFragment : Fragment() {
                 binding.answerTextView.text = getString(R.string.incorrect_answer)
                 Handler().postDelayed({
                     callNextFragment()
-                },1000)
+                },RuntimeSettings.newRoundTimer)
 
             }
         }
@@ -123,7 +123,7 @@ class FlashcardFragment : Fragment() {
             binding.answerTextView .text = getString(R.string.correct_answer)
             Handler().postDelayed({
                 callNextFragment()
-            },1000)
+            },RuntimeSettings.newRoundTimer)
 
         }
 

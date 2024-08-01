@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.rodricorgom.semibreve.databinding.ActivityMainBinding
 import com.rodricorgom.semibreve.ui.MainMenuFragment
 import com.rodricorgom.semibreve.ui.OptionsFragment
-import com.rodricorgom.semibreve.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 

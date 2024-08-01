@@ -30,14 +30,13 @@
     <string name="button_return_home">Return to home screen</string>
     <string name="rounds_number_text">Rounds</string>
     <string name="round_number_default">Default: 10</string>
-    <string name="save_exit_button" />
+    <string name="save_exit_button" >Save and exit</string>
     <string name="end_test_button">End test</string>
     <string name="save_and_exit_button">Save and exit</string>
     <string name="exit_without_saving_button">Exit without saving</string>
     <string name="cancel_button">Cancel</string>
     <string name="test_options_title">Create new session</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_drawer">MainActivityDrawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -51,10 +50,12 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="settings_button">Settings\n</string>
     <string name="fragment_settings_title">Settings\n</string>
-    <string name="delete_results_button">Delete test results</string>
+    <!--> -->
+    <string name="delete_results_button">Delete saved test results</string>
     <string name="button_back">Back</string>
     <string name="time_between_rounds">Time until next round</string>
     <string name="time_between_rounds_detail">Specifies the time between answering a flashcard and the next one appearing automatically. Will not work in manual mode.</string>
     <string name="manual_mode_heading_text">Manual Mode</string>
     <string name="manuak_mode_explanation">Toggles manual mode for next rounds. A button will appear on the flashcard after answering to toggle the next round.</string>
+    <string name="button_save">Save changes</string>
 </resources>

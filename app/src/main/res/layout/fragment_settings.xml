@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
+    android:background="?android:windowBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SettingsFragment" >
@@ -58,7 +59,7 @@
         android:id="@+id/deleteResultsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/delete_results_button"
         app:layout_constraintBottom_toTopOf="@+id/backToMenuButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,4 +107,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/roundTimerDetail" />
+
+    <Button
+        android:id="@+id/settingsSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/button_save"
+        app:layout_constraintBottom_toTopOf="@+id/deleteResultsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
