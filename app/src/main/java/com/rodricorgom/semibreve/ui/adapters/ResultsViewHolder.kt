@@ -10,6 +10,12 @@ class ResultsViewHolder (private var binding: ResultsViewBinding) : RecyclerView
     //val context = context
 
     fun bind(result : TestResult){
+        binding.idHolderTextView.text = result.id.toString()
+        binding.dateHolderTextView.text = result.date.toString()
+        binding.scoreHolderTextView.text = result.score.toString()
+        binding.correctAnswerTextView.text = result.correctAnswers.toString()
+        binding.incorrectAnswerTextView.text = result.incorrectAnswers.toString()
+
 
     }
 }

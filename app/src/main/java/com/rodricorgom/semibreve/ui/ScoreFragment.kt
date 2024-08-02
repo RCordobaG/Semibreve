@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.rodricorgom.semibreve.R
 import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
 import com.rodricorgom.semibreve.data.model.LocalResultsManager
 import com.rodricorgom.semibreve.data.model.TestResult
 import com.rodricorgom.semibreve.databinding.FragmentScoreBinding
+import com.rodricorgom.semibreve.ui.adapters.ResultsAdapter
 import java.io.File
 import java.io.IOException
 import java.time.Instant
@@ -62,7 +64,7 @@ class ScoreFragment : Fragment() {
 
         correctAnswers = RuntimeSettings.correctAnswers
         incorrectAnswers = RuntimeSettings.incorrectAnswers
-        score = (correctAnswers.toDouble()/RuntimeSettings.rounds.toDouble())
+        score = (correctAnswers.toDouble()/RuntimeSettings.rounds.toDouble()) * 100
 
         Log.d("Score","Correct ${correctAnswers}")
         Log.d("Score","Incorrect ${incorrectAnswers}")
@@ -71,11 +73,9 @@ class ScoreFragment : Fragment() {
         val result = TestResult(System.currentTimeMillis().toString(), LocalDateTime.now().toString(),correctAnswers, incorrectAnswers,score)
         manager.createResult(result)
 
-        binding.correctAnswersTextView.text = String.format(getString(R.string.results_corrects_answers_text),
-            RuntimeSettings.correctAnswers)
-        binding.incorrectAnswersTextView.text = String.format(getString(R.string.results_incorrect_answers_text),
-            RuntimeSettings.incorrectAnswers)
-        binding.finalScoreTextView.text = String.format(getString(R.string.computed_score_text),((RuntimeSettings.correctAnswers.toFloat() / RuntimeSettings.rounds.toFloat())*100))
+        binding.correctAnswersTextView.text = String.format(getString(R.string.results_corrects_answers_text), correctAnswers)
+        binding.incorrectAnswersTextView.text = String.format(getString(R.string.results_incorrect_answers_text), incorrectAnswers)
+        binding.finalScoreTextView.text = String.format(getString(R.string.computed_score_text),score)
 
         binding.scoreHomeButton.setOnClickListener{
             parentFragmentManager.popBackStackImmediate()
@@ -88,6 +88,11 @@ class ScoreFragment : Fragment() {
 
         binding.scoreNewQuizButton.setOnClickListener{
             parentFragmentManager.popBackStack()
+        }
+
+        binding.resultRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = ResultsAdapter(manager.readResults(),manager)
         }
     }
 

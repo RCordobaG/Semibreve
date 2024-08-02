@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodricorgom.semibreve.R
+import com.rodricorgom.semibreve.data.model.LocalResultsManager
 import com.rodricorgom.semibreve.databinding.FragmentMainMenuBinding
 import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
+import com.rodricorgom.semibreve.ui.adapters.ResultsAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +45,8 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val manager = LocalResultsManager(requireContext())
+
         binding.menuNewQuizButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
@@ -54,6 +59,11 @@ class MainMenuFragment : Fragment() {
                 .replace(R.id.fragmentContainerView,SettingsFragment.newInstance())
                 .addToBackStack("Settings fragment")
                 .commit()
+        }
+
+        binding.MainMenuRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = ResultsAdapter(manager.readResults(),manager)
         }
     }
 

@@ -1,6 +1,5 @@
 package com.rodricorgom.semibreve.ui.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +9,7 @@ import com.rodricorgom.semibreve.databinding.ResultsViewBinding
 
 class ResultsAdapter (
     private val results : List<TestResult>,
-    private val manager : LocalResultsManager,
-    context: Context
+    private val manager : LocalResultsManager
 ) : RecyclerView.Adapter<ResultsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsViewHolder {
 
@@ -22,6 +20,10 @@ class ResultsAdapter (
     override fun getItemCount(): Int = manager.elementCount()
 
     override fun onBindViewHolder(holder: ResultsViewHolder, position: Int) {
+        val result = results[position]
+
+        holder.bind(result)
+
 
     }
 
