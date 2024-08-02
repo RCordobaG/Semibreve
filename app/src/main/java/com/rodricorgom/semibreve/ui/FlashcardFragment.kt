@@ -1,21 +1,19 @@
 package com.rodricorgom.semibreve.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.rodricorgom.semibreve.Constants
 import com.rodricorgom.semibreve.R
+import com.rodricorgom.semibreve.data.RuntimeData.RuntimeSettings
 import com.rodricorgom.semibreve.databinding.FragmentFlashcardBinding
-import com.rodricorgom.semibreve.databinding.FragmentOptionsBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "scale"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,30 +21,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FlashcardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: Boolean? = null
-    private var param2: String? = null
 
     private lateinit var notes : MutableSet<String>
 
     private lateinit var answerButtons : List<Button>
-    //private var US_notes = Constants.US_notes.toMutableSet()
-
-    //val notesMap = mapOf(1 to "do_c_light",2 to "")
 
     private var _binding: FragmentFlashcardBinding? = null
 
     private val binding get() = _binding!!
 
-    //Use American scale if true
-    var scale: Boolean = false;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getBoolean(ARG_PARAM1)
-            scale = param1 as Boolean
-        }
     }
 
     override fun onCreateView(
@@ -60,13 +45,41 @@ class FlashcardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(scale){
-            notes = Constants.US_notes.toMutableSet()
-        }
-        else{
-            notes = Constants.EU_notes.toMutableSet()
+
+
+        binding.endTestButton.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setTitle("End current test?")
+                .setMessage("You have chosen to end the current test. Would you like to save your results up to now?")
+
+                .setPositiveButton(getString(R.string.save_and_exit_button), DialogInterface.OnClickListener(){ dialog, int->
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                        .commit()
+                })
+
+                .setNeutralButton(getString(R.string.exit_without_saving_button), DialogInterface.OnClickListener(){ dialog, int ->
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView,OptionsFragment.newInstance())
+                        .commit()
+                })
+
+                .setNegativeButton(getString(R.string.cancel_button),null)
+                .show()
         }
 
+        RuntimeSettings.currentRound += 1
+        binding.roundCounterTextView.text = String.format(getString(R.string.round_counter_text),
+            RuntimeSettings.currentRound,
+            RuntimeSettings.rounds)
+        notes = if(RuntimeSettings.scale){
+            Constants.US_notes.toMutableSet()
+        } else{
+            Constants.EU_notes.toMutableSet()
+        }
+
+
+        //Choose which one will be the correct answer and act accordingly
         answerButtons = mutableListOf(binding.answerBtn1,binding.answerBtn2,binding.answerBtn3,binding.answerBtn4)
         var correctButton = answerButtons.elementAt((0..(answerButtons.size)-1).random())
         Log.d("SET_TEST","${correctButton}")
@@ -74,9 +87,6 @@ class FlashcardFragment : Fragment() {
         Log.d("SET_TEST","${answerButtons}")
 
 
-
-
-        //Choose which one will be the correct answer and act accordingly
         Log.d("SET_TEST","${notes}")
         var correctAnswer = notes.elementAt((0..(notes.size - 1)).random())
         notes.remove(correctAnswer)
@@ -84,11 +94,11 @@ class FlashcardFragment : Fragment() {
 
         correctButton.text = correctAnswer
 
-        if(scale){
-            binding.imageView2.setImageResource(Constants.noteImageUS.get(correctAnswer)!!)
+        if(RuntimeSettings.scale){
+            binding.notesImageView.setImageResource(Constants.noteImageUS.get(correctAnswer)!!)
         }
         else{
-            binding.imageView2.setImageResource(Constants.noteImageEU.get(correctAnswer)!!)
+            binding.notesImageView.setImageResource(Constants.noteImageEU.get(correctAnswer)!!)
         }
 
 
@@ -99,18 +109,41 @@ class FlashcardFragment : Fragment() {
             button.setText(note)
             Log.d("SET_TEST","${notes}")
             button.setOnClickListener{
-                binding.textView9.text = "Incorrect"
+                RuntimeSettings.incorrectAnswers += 1
+                binding.answerTextView.text = getString(R.string.incorrect_answer)
+                Handler().postDelayed({
+                    callNextFragment()
+                },RuntimeSettings.newRoundTimer)
+
             }
         }
 
         correctButton.setOnClickListener{
-            binding.textView9.text = "Correct"
-        }
+            RuntimeSettings.correctAnswers += 1
+            binding.answerTextView .text = getString(R.string.correct_answer)
+            Handler().postDelayed({
+                callNextFragment()
+            },RuntimeSettings.newRoundTimer)
 
+        }
 
     }
 
-
+    private fun callNextFragment(){
+        Log.d("Score","Correct ${RuntimeSettings.correctAnswers}")
+        Log.d("Score","Incorrect ${RuntimeSettings.incorrectAnswers}")
+        Log.d("Score","Ratio ${(RuntimeSettings.correctAnswers)/ RuntimeSettings.rounds}")
+        if(RuntimeSettings.currentRound >= RuntimeSettings.rounds){
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView,ScoreFragment.newInstance())
+                .commit()
+        }
+        else{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, newInstance())
+                .commit()
+        }
+    }
 
     companion object {
         /**
@@ -123,11 +156,9 @@ class FlashcardFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: Boolean) =
+        fun newInstance() =
             FlashcardFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ARG_PARAM1, param1)
-                }
+
             }
     }
 }
