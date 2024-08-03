@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.rodricorgom.semibreve.Constants
 import com.rodricorgom.semibreve.R
@@ -46,6 +47,7 @@ class FlashcardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.button2.isVisible = RuntimeSettings.manualMode
 
         binding.endTestButton.setOnClickListener{
             AlertDialog.Builder(requireContext())
@@ -111,9 +113,17 @@ class FlashcardFragment : Fragment() {
             button.setOnClickListener{
                 RuntimeSettings.incorrectAnswers += 1
                 binding.answerTextView.text = getString(R.string.incorrect_answer)
-                Handler().postDelayed({
-                    callNextFragment()
-                },RuntimeSettings.newRoundTimer)
+                if(RuntimeSettings.manualMode){
+                    binding.button2.setOnClickListener{
+                        callNextFragment()
+                    }
+                }
+                else{
+                    Handler().postDelayed({
+                        callNextFragment()
+                    },RuntimeSettings.newRoundTimer)
+                }
+
 
             }
         }
@@ -121,9 +131,16 @@ class FlashcardFragment : Fragment() {
         correctButton.setOnClickListener{
             RuntimeSettings.correctAnswers += 1
             binding.answerTextView .text = getString(R.string.correct_answer)
-            Handler().postDelayed({
-                callNextFragment()
-            },RuntimeSettings.newRoundTimer)
+            if(RuntimeSettings.manualMode){
+                binding.button2.setOnClickListener{
+                    callNextFragment()
+                }
+            }
+            else {
+                Handler().postDelayed({
+                    callNextFragment()
+                }, RuntimeSettings.newRoundTimer)
+            }
 
         }
 

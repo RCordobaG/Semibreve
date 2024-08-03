@@ -50,4 +50,5 @@
     <string name="correct_answer_text">Respuestas correctas</string>
     <string name="incorrect_answer_text">Respuestas incorrectas</string>
     <string name="past_results">Resultados Previos</string>
+    <string name="next_flashcard_button">Siguiente</string>
 </resources>

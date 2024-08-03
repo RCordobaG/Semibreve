@@ -54,6 +54,10 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        binding.manualModeSwitch.setOnClickListener{
+            RuntimeSettings.manualMode = binding.manualModeSwitch.isChecked
+        }
+
         binding.backToMenuButton.setOnClickListener{
             parentFragmentManager.popBackStack()
         }

@@ -56,4 +56,5 @@
     <string name="correct_answer_text" >Correct Answers</string>
     <string name="incorrect_answer_text">Incorrect Answers</string>
     <string name="past_results" >Past results</string>
+    <string name="next_flashcard_button" >Next round</string>
 </resources>
