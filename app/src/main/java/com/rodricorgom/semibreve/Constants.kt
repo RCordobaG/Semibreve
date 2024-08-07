@@ -6,21 +6,21 @@ object Constants {
     val US_notes = setOf("C","D","E","F","G","A","B")
 
     val noteImageEU = mapOf(
-        "Do" to R.drawable.do_c_light,
-        "Re" to R.drawable.re_d_light,
-        "Mi" to R.drawable.mi_e_light,
-        "Fa" to R.drawable.fa_f_light,
-        "Sol" to R.drawable.sol_g_light,
-        "La" to R.drawable.la_a_light,
-        "Si" to R.drawable.si_b_light)
+        "Do" to R.drawable.do_c,
+        "Re" to R.drawable.re_d,
+        "Mi" to R.drawable.mi_e,
+        "Fa" to R.drawable.fa_f,
+        "Sol" to R.drawable.sol_g,
+        "La" to R.drawable.la_a,
+        "Si" to R.drawable.si_b)
 
     val noteImageUS = mapOf(
-        "C" to R.drawable.do_c_light,
-        "D" to R.drawable.re_d_light,
-        "E" to R.drawable.mi_e_light,
-        "F" to R.drawable.fa_f_light,
-        "G" to R.drawable.sol_g_light,
-        "A" to R.drawable.la_a_light,
-        "B" to R.drawable.si_b_light)
+        "C" to R.drawable.do_c,
+        "D" to R.drawable.re_d,
+        "E" to R.drawable.mi_e,
+        "F" to R.drawable.fa_f,
+        "G" to R.drawable.sol_g,
+        "A" to R.drawable.la_a,
+        "B" to R.drawable.si_b)
 
 }
