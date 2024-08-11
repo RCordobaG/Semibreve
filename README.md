@@ -28,6 +28,9 @@ El controlador de Flashcards muestra los botones de opciones con la imagen de re
 Para mantener el estado del ejercicio, como el número de rondas y la ronda actual, el puntaje y el radio de respuestas correctas a incorrectas se utiliza un objeto Singleton. Al finalizr el ejercicio funciona como la fuente de verdad para computar el resultado y almacenarlo en un objeto JSON en la carpeta de documentos del contenedor. Este objeto se inicializa con los valores del usuario, de estar disponibles, para determinar la operación y ajustes de la aplicación en tiempo de ejecución.
 El usuario puede interrumpir el ejercicio en cualquier momento y se computarán sus resultados parciales
 
+# Diseño del ícono
+El ícono se diseñó con la filosofía de MaterialDesign en mente, pero se buscó un diseño más vibrante para el fondo de modo que sobresaliera. Tiene la ilustración de una corchea, la nota más básica en notación musical, ya que está enfocado a un público principiante en música.
+El nombre Semibreve es una nota con menor duración que la corchea, a modo de simbolizar el pacing de aprendizaje propuesto para el usuario.
 
 # IOS
 
