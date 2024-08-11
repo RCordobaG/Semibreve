@@ -33,6 +33,12 @@ El usuario puede interrumpir el ejercicio en cualquier momento y se computarán 
 
 La versión de IOS fue diseñada en XCode 15.4 y tiene como target el SDK de IOS 17.5
 
+## Compatibilidad
+
+El tipo de deployment son todos aquellos dispositivos con posibilidad de ejecutar IOS 17 https://support.apple.com/es-mx/guide/iphone/iphe3fa5df43/ios. 
+Los parámetros de diseño son capaces de acomodar los distintos tamaños de pantalla manejados por Apple, y fue probabdo en equipo físico en el modelo SE 2 de 4.7 pulgadas y en el iPhone 13 de 6.1 pulgadas. El tamaño de los elementos se ajusta de forma dinámica.
+Solamente se contempla el diseño para la orientación vertical, por lo que no se permite modificar la orientación de la pantalla. Esto con la finalidad de que el usuario tenga una mejor experiencia debido al diseño de los elementos.
+
 ## Notas técnicas
 
 En IOS se utilizó la funcionalidad de View Controllers ordenados jerárquicamente a través de un Navigation controller. EL controlador de entrada es el menú principal; a partir de este se utilizan segues para dirigir al usuario a las distintas partes de la aplicación. Ya que el estado de la aplicación está determinado por el Singleton, no es necesario enviar datos entre los segues, lo que reduce la complejidad y la posibilidad de errores. El CRUD usa una lista de objetos Codable para convertir objetos a su representación en JSON y de regreso, y por medio de esta lista se realizan las operaciones de modificación de la base de datos.
@@ -41,6 +47,12 @@ En IOS se utilizó la funcionalidad de View Controllers ordenados jerárquicamen
 # Android
 
 Se usó la versión Koala 2024.1.1 y el target de desarrollo es el SDK 26 hasta 34
+
+## Compatibilidad
+
+El tipo de deployment son todos aquellos dispositivos en el SDK26 o superior. Algunas de las funciones implementadas no son retrocompatibles prebio a esta versión.
+Los parámetros de diseño son capaces de acomodar los distintos tamaños de pantalla por medio de ConstraintLayouts, y fue probabdo en equipo físico en los dispositivos Huawei P20 Lite de 4.7 pulgadas, Android 9, y en el Moto Edge 30 de 6.7 pulgadas en Android 13.
+Solamente se contempla el diseño para la orientación vertical, por lo que no se permite modificar la orientación de la pantalla. Esto con la finalidad de que el usuario tenga una mejor experiencia debido al diseño de los elementos.
 
 ## Notas técnicas
 
