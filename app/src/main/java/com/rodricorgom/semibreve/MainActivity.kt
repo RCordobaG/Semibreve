@@ -1,5 +1,6 @@
 package com.rodricorgom.semibreve
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.rodricorgom.semibreve.databinding.ActivityMainBinding
@@ -14,6 +15,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = getSharedPreferences("", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.commit()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
